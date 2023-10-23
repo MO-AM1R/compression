@@ -1,16 +1,27 @@
 package TypesOfCompression;
+import java.util.List;
 
+/**
+ *<pre>
+ *This class represent the LZ77 algorithm and it's method
+ *if implement {@link CompressionAlgorithm} interface
+ *</pre>
+ *
+ * <blockquote>
+ * @version <strong style="color: 'white'">1.0.1</strong>
+ * @author <strong style="color: 'white'">Mohamed Amir</strong>
+ * </blockquote>
+ */
 public class LZ77 implements CompressionAlgorithm{
 
     /**
-     * <pre>
+     *<pre>
      *This method {@code compress} it compress the
      *content of {@code content} and return the tags
      *as {@code String}
-     * </pre>
+     *</pre>
      *
      * <blockquote>
-     * @version <strong style="color: 'white'">1.0.0</strong>
      * @author <strong style="color: 'white'">Mohamed Amir</strong>
      * </blockquote>
      */
@@ -21,75 +32,102 @@ public class LZ77 implements CompressionAlgorithm{
         StringBuilder tags = new StringBuilder();
 
         while (j < content.length()){
-            if (i == -1){
-                buffer.append(content.charAt(j));
-                tags.append("<0, 0, ").append(content.charAt(j++)).append(">\n");
-                ++i ;
+            String temp;
+            StringBuilder currentPattern = new StringBuilder();
+            currentPattern.append(content.charAt(j)) ;
+
+            int position, length = 0;
+            boolean found = false ;
+
+            while (j + 1 < content.length()){
+                if (buffer.toString().contains(currentPattern.toString())){
+                    buffer.append(content.charAt(j));
+                    currentPattern.append(content.charAt(++j)) ;
+                    found = true ;
+                }
+                else{
+                    break ;
+                }
+            }
+
+            if (!found){
+                position = 0;
             }
             else{
-                StringBuilder currentPattern = new StringBuilder();
-                currentPattern.append(content.charAt(j));
-                int position, length ;
-                String temp ;
+                if (!buffer.substring(0, i + 1)
+                        .contains(currentPattern.substring(0, currentPattern.length() - 1))){
+                    int f = 1;
 
-                while (j + 1 < content.length()){
-                    if (buffer.toString().contains(currentPattern.toString() + content.charAt(j + 1))){
-                        currentPattern.append(content.charAt(++j)) ;
-                        buffer.append(content.charAt(j)) ;
+                    while (!buffer.substring(0, i + 1)
+                            .contains(currentPattern.substring(0, currentPattern.length() - f))){
+                        ++f ;
                     }
-                    else{
-                        break ;
-                    }
-                }
-
-                if (!buffer.toString().contains(currentPattern.toString())){
-                    position = 0;
-                    length = 0 ;
+                    position = i - buffer.substring(0, i + 1)
+                            .lastIndexOf(currentPattern.substring(0, currentPattern.length() - f)) + 1 ;
                 }
                 else{
-                    position = i - buffer.toString().lastIndexOf(currentPattern.toString()) + 1;
-                    length = currentPattern.length() ;
+                    position = i - buffer.substring(0, i + 1).
+                        lastIndexOf(currentPattern.substring(0, currentPattern.length() - 1)) + 1;
                 }
 
-                if (j + 1 >= content.length()){
-                    temp = "<" + position + ", " + length + ", " + currentPattern.toString().charAt(currentPattern.length() - 1) + ">\n";
-                    buffer.append(currentPattern);
-                }
-                else{
-                    if (position == 0){
-                        temp = "<" + position + ", " + length + ", " + currentPattern + ">\n";
-                        buffer.append(currentPattern);
-                    }
-                    else{
-                        temp = "<" + position + ", " + length + ", " + content.charAt(++j) + ">\n";
-                        buffer.append(currentPattern).append(content.charAt(j));
-                    }
-                }
-
-                tags.append(temp);
-                ++j ;
-                i = buffer.length() - 1;
+                length = currentPattern.length() - 1;
             }
+
+            if (position == 0){
+                temp = "<" + position + ", " + length + ", " + content.charAt(j) + ">\n";
+            }
+            else{
+                temp = "<" + position + ", " + length + ", " +
+                        currentPattern.toString().charAt(currentPattern.length() - 1) + ">\n";
+            }
+
+            buffer.append(content.charAt(j));
+            tags.append(temp);
+            i = buffer.length() - 1;
+            ++j ;
         }
 
         return tags.toString();
     }
 
     /**
-     * <pre>
+     *<pre>
      *This method {@code deCompress} it decompress the
      *content of {@code content} and return the text
      *as {@code String}
-     * </pre>
+     *</pre>
      *
      * <blockquote>
-     * @version <strong style="color: 'white'">1.0.0</strong>
      * @author <strong style="color: 'white'">Mohamed Amir</strong>
      * </blockquote>
      */
     @Override
-    public String deCompress(String content) {
+    public String deCompress(List<String> tags) {
+        StringBuilder text = new StringBuilder();
 
-        return null;
+        for (String ele : tags) {
+            ele = ele.replaceAll(",", "");
+            ele = ele.replaceAll("<", "");
+            ele = ele.replaceAll(">", "");
+            List<String> listTagInfo = List.of(ele.split(" "));
+
+            int position = Integer.parseInt(listTagInfo.get(0));
+            int length = Integer.parseInt(listTagInfo.get(1));
+            char nextChar = listTagInfo.get(2).charAt(0);
+
+            if (position == 0) {
+                text.append(nextChar);
+            } else {
+                int counter = 0;
+                int l = text.length();
+
+                while (length-- > 0) {
+                    text.append(text.toString().charAt(l - position + counter++));
+                }
+                text.append(nextChar);
+            }
+        }
+
+        return text.toString();
     }
 }
