@@ -1,7 +1,5 @@
 package Process;
-
 import TypesOfCompression.CompressionAlgorithm;
-
 import java.io.IOException;
 
 /**
