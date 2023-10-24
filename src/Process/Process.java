@@ -1,5 +1,9 @@
 package Process;
 
+import TypesOfCompression.CompressionAlgorithm;
+
+import java.util.List;
+
 /**
  * <pre>
  *    This interface it handle the case will be made on the file
@@ -12,5 +16,5 @@ package Process;
  * </blockquote>
  */
 public interface Process {
-    public void runProcess() ;
+    String runProcess(CompressionAlgorithm compressionAlgorithm, List<String> content) ;
 }
