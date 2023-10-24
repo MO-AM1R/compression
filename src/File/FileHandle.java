@@ -12,7 +12,7 @@ import java.util.Scanner;
  * </p>
  * <blockquote><p>
  *  @author  <strong style="color: 'white'">Mohamed Amir</strong>
- *  @version <strong style="color: 'white'">1.0.1</strong>
+ *  @version <strong style="color: 'white'">1.0.2</strong>
  * </blockquote></p>
  */
 public class FileHandle {
@@ -22,18 +22,13 @@ public class FileHandle {
      * This function Reads the content of the file and returns it as a string
      * {@code fileContent}.</pre>
      * <blockquote><p>
-     * @param fileName <strong style="color: 'white'">It contains the file name which
-     *                 will read from</strong>
      * @return <strong style="color: 'white'">The content of the file as a string.</strong>
      * </blockquote></p>
      */
-    static public String read(String fileName) {
+    static public String read() {
         String directory = System.getProperty("user.dir") + "/src/File/";
-        if (!fileName.contains(".txt")) {
-            fileName += ".txt";
-        }
 
-        File file = new File(directory + fileName);
+        File file = new File(directory + "input.txt");
         String fileContent = "";
 
         try {
