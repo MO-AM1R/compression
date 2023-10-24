@@ -29,22 +29,22 @@ public class FileHandle {
         String directory = System.getProperty("user.dir") + "/src/File/";
 
         File file = new File(directory + "input.txt");
-        String fileContent = "";
+        StringBuilder fileContent = new StringBuilder();
 
         try {
             Scanner fileReader = new Scanner(file);
-            if (fileReader.hasNextLine()) {
-                fileContent += fileReader.nextLine() + '\n';
+            while (fileReader.hasNextLine()) {
+                fileContent.append(fileReader.nextLine()).append('\n');
             }
 
-            fileContent += fileReader.nextLine();
             fileReader.close();
         }
         catch (FileNotFoundException e) {
             System.out.println("The file name is incorrect");
             throw new RuntimeException(e);
         }
-        return fileContent;
+
+        return fileContent.toString();
     }
 
     /**
