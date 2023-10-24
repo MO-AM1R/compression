@@ -1,8 +1,6 @@
 package Process;
-
 import TypesOfCompression.CompressionAlgorithm;
-
-import java.util.List;
+import java.io.IOException;
 
 /**
  * <pre>
@@ -16,5 +14,5 @@ import java.util.List;
  * </blockquote>
  */
 public interface Process {
-    String runProcess(CompressionAlgorithm compressionAlgorithm, List<String> content) ;
+    String runProcess(CompressionAlgorithm compressionAlgorithm) throws IOException;
 }
