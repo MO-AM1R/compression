@@ -1,6 +1,5 @@
 package Process;
 import TypesOfCompression.CompressionAlgorithm;
-import java.io.IOException;
 
 /**
  * <pre>
@@ -14,5 +13,5 @@ import java.io.IOException;
  * </blockquote>
  */
 public interface Process {
-    String runProcess(CompressionAlgorithm compressionAlgorithm) throws IOException;
+    String runProcess(CompressionAlgorithm compressionAlgorithm);
 }
