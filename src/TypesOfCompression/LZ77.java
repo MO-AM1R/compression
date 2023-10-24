@@ -54,22 +54,14 @@ public class LZ77 implements CompressionAlgorithm{
                 position = 0;
             }
             else{
-                if (!buffer.substring(0, i + 1)
-                        .contains(currentPattern.substring(0, currentPattern.length() - 1))){
-                    int f = 1;
+                int f = 1;
 
-                    while (!buffer.substring(0, i + 1)
-                            .contains(currentPattern.substring(0, currentPattern.length() - f))){
-                        ++f ;
-                    }
-                    position = i - buffer.substring(0, i + 1)
-                            .lastIndexOf(currentPattern.substring(0, currentPattern.length() - f)) + 1 ;
+                while (f < currentPattern.length() && buffer.substring(0, i + 1)
+                        .contains(currentPattern.substring(0, f))){
+                    ++f ;
                 }
-                else{
-                    position = i - buffer.substring(0, i + 1).
-                        lastIndexOf(currentPattern.substring(0, currentPattern.length() - 1)) + 1;
-                }
-
+                position = i - buffer.substring(0, i + 1)
+                        .lastIndexOf(currentPattern.substring(0, f - 1)) + 1 ;
                 length = currentPattern.length() - 1;
             }
 
