@@ -36,7 +36,7 @@ public class FileHandle {
             while (fileReader.hasNextLine()) {
                 fileContent.append(fileReader.nextLine()).append('\n');
             }
-
+            fileContent.deleteCharAt(fileContent.length() - 1) ;
             fileReader.close();
         }
         catch (FileNotFoundException e) {
