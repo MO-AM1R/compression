@@ -4,7 +4,7 @@ import java.util.List;
 /**
  *<pre>
  *This class represent the LZ77 algorithm and it's method
- *if implement {@link CompressionAlgorithm} interface
+ *it implements {@link CompressionAlgorithm} interface
  *</pre>
  *
  * <blockquote>
