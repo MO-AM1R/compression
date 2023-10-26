@@ -1,5 +1,4 @@
 package TypesOfCompression;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,8 +56,8 @@ public class LZ78 implements CompressionAlgorithm{
                 dictionary.put(currentPattern.toString(), counter++) ;
             }
             else{
-                tags.append("<").append(dictionary.get(currentPattern.toString())).append(", ")
-                        .append("null").append(">");
+                tags.append("<").append('0').append(", ")
+                        .append(currentPattern).append(">");
             }
         }
 
@@ -81,6 +80,32 @@ public class LZ78 implements CompressionAlgorithm{
      */
     @Override
     public String deCompress(List<String> tags) {
-        return null;
+        StringBuilder text = new StringBuilder();
+        Map<String, Integer> dictionary = new HashMap<>() ;
+        int counter = 1;
+
+        for (String ele : tags) {
+            List<String> listTagInfo = List.of(ele.split(" "));
+            int position = Integer.parseInt(listTagInfo.get(0));
+            char nextChar = listTagInfo.get(1).charAt(0);
+
+            if (position == 0){
+                text.append(nextChar) ;
+                dictionary.put(nextChar + "", counter++) ;
+                continue;
+            }
+            
+            String pattern = "";
+            for (Map.Entry<String, Integer> entry:
+                 dictionary.entrySet()) {
+                if (entry.getValue() == position){
+                    pattern = entry.getKey() + nextChar;
+                }
+            }
+            text.append(pattern) ;
+            dictionary.put(pattern, counter++) ;
+        }
+
+        return text.toString();
     }
 }
