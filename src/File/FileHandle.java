@@ -26,8 +26,7 @@ public class FileHandle {
      * </blockquote></p>
      */
     static public String read() {
-        String directory = System.getProperty("user.dir") + "/src/File/";
-
+        String directory = System.getProperty("user.dir") + "\\src\\File\\";
         File file = new File(directory + "input.txt");
         StringBuilder fileContent = new StringBuilder();
 
