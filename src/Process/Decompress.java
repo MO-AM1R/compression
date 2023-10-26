@@ -13,7 +13,12 @@ public class Decompress implements Process{
         List<String> tags = new ArrayList<>();
 
         while (stringBuilder.hasNextLine()){
-            tags.add(stringBuilder.nextLine()) ;
+            String tag = stringBuilder.nextLine() ;
+            tag = tag.replaceAll(",", "");
+            tag = tag.replaceAll("<", "");
+            tag = tag.replaceAll(">", "");
+
+            tags.add(tag) ;
         }
 
         return compressionAlgorithm.deCompress(tags) ;

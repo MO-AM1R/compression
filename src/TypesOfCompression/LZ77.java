@@ -98,9 +98,6 @@ public class LZ77 implements CompressionAlgorithm{
         StringBuilder text = new StringBuilder();
 
         for (String ele : tags) {
-            ele = ele.replaceAll(",", "");
-            ele = ele.replaceAll("<", "");
-            ele = ele.replaceAll(">", "");
             List<String> listTagInfo = List.of(ele.split(" "));
 
             int position = Integer.parseInt(listTagInfo.get(0));
