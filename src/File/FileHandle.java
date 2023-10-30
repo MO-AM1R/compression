@@ -16,7 +16,12 @@ import java.util.Scanner;
  * </blockquote></p>
  */
 public class FileHandle {
+    File file ;
 
+    public FileHandle(String fileName){
+        String directory = System.getProperty("user.dir") + "\\src\\File\\";
+        file = new File(directory + fileName) ;
+    }
     /**
      * <pre>
      * This function Reads the content of the file and returns it as a string
@@ -25,11 +30,8 @@ public class FileHandle {
      * @return <strong style="color: 'white'">The content of the file as a string.</strong>
      * </blockquote></p>
      */
-    static public String read() {
-        String directory = System.getProperty("user.dir") + "\\src\\File\\";
-        File file = new File(directory + "input.txt");
+    public String read() {
         StringBuilder fileContent = new StringBuilder();
-
         try {
             Scanner fileReader = new Scanner(file);
             while (fileReader.hasNextLine()) {
@@ -63,7 +65,7 @@ public class FileHandle {
      * </p>
      * </blockquote>
      */
-    static public void write(String content) {
+    public void write(String content) {
         String directory = System.getProperty("user.dir") + "/src/File/";
 
         try (FileWriter outputFile = new FileWriter(directory + "output.txt")) {

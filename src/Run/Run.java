@@ -18,6 +18,7 @@ public class Run {
     Process process ;
     CompressionAlgorithm compressionAlgorithm ;
 
+    FileHandle fileHandle ;
     /**
      * <pre>
      * Constructor initialize the algorithm and the process
@@ -35,9 +36,10 @@ public class Run {
      *  @author <strong style="color: 'white'">Mohamed Amir</strong>
      *  </blockquote>
      */
-    public Run(Process p, CompressionAlgorithm algorithm){
+    public Run(Process p, CompressionAlgorithm algorithm, FileHandle file){
         process = p ;
         compressionAlgorithm = algorithm ;
+        fileHandle = file ;
     }
 
     /**
@@ -52,6 +54,6 @@ public class Run {
      */
     public void run(){
         String content = process.runProcess(compressionAlgorithm) ;
-        FileHandle.write(content);
+        fileHandle.write(content);
     }
 }
