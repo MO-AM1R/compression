@@ -13,5 +13,5 @@ import TypesOfCompression.CompressionAlgorithm;
  * </blockquote>
  */
 public interface Process {
-    String runProcess(CompressionAlgorithm compressionAlgorithm);
+    String runProcess(CompressionAlgorithm compressionAlgorithm, String content);
 }

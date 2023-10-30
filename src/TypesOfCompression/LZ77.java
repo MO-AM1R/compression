@@ -8,7 +8,7 @@ import java.util.List;
  *</pre>
  *
  * <blockquote>
- * @version <strong style="color: 'white'">1.0.1</strong>
+ * @version <strong style="color: 'white'">1.1</strong>
  * @author <strong style="color: 'white'">Mohamed Amir</strong>
  * </blockquote>
  */
@@ -32,54 +32,37 @@ public class LZ77 implements CompressionAlgorithm{
         StringBuilder tags = new StringBuilder();
 
         while (j < content.length()){
-            String temp;
             StringBuilder currentPattern = new StringBuilder();
             currentPattern.append(content.charAt(j)) ;
-
-            int position, length = 0;
-            boolean found = false ;
+            int position = 0, length = 0;
 
             while (j + 1 < content.length()){
                 if (buffer.toString().contains(currentPattern.toString())){
+                    position = i - buffer.lastIndexOf(currentPattern.toString()) + 1;
                     buffer.append(content.charAt(j));
                     currentPattern.append(content.charAt(++j)) ;
-                    found = true ;
                 }
                 else{
                     break ;
                 }
             }
 
-            if (!found){
-                position = 0;
-            }
-            else{
-                int f = 1;
-
-                while (f < currentPattern.length() && buffer.substring(0, i + 1)
-                        .contains(currentPattern.substring(0, f))){
-                    ++f ;
-                }
-                position = i - buffer.substring(0, i + 1)
-                        .lastIndexOf(currentPattern.substring(0, f - 1)) + 1 ;
-                length = currentPattern.length() - 1;
-            }
-
             if (position == 0){
-                temp = "<" + position + ", " + length + ", " + content.charAt(j) + ">\n";
+                tags.append("<").append(position).append(", ")
+                        .append(length).append(", ").append(content.charAt(j)).append(">\n");
             }
             else{
-                temp = "<" + position + ", " + length + ", " +
-                        currentPattern.toString().charAt(currentPattern.length() - 1) + ">\n";
+                length = currentPattern.length() - 1;
+                tags.append("<").append(position).append(", ").append(length)
+                        .append(", ").append(currentPattern.toString().charAt(currentPattern.length() - 1))
+                        .append(">\n");
             }
-
             buffer.append(content.charAt(j));
-            tags.append(temp);
             i = buffer.length() - 1;
             ++j ;
         }
 
-        return tags.toString();
+        return tags.substring(0, tags.length() - 1);
     }
 
     /**

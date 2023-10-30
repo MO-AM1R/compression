@@ -1,11 +1,9 @@
-import File.FileHandle;
-import Run.Run;
-import TypesOfCompression.CompressionAlgorithm;
-import Process.Process;
-import Process.Compress;
-import TypesOfCompression.LZ77;
-import TypesOfCompression.LZW;
 import java.util.Scanner;
+import File.*;
+import Run.*;
+import Process.* ;
+import Process.Process ;
+import TypesOfCompression.*;
 
 public class Main {
     public static void main(String[] args) {

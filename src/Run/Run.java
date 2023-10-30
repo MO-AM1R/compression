@@ -17,7 +17,6 @@ import TypesOfCompression.CompressionAlgorithm;
 public class Run {
     Process process ;
     CompressionAlgorithm compressionAlgorithm ;
-
     FileHandle fileHandle ;
     /**
      * <pre>
@@ -53,7 +52,8 @@ public class Run {
      *  </blockquote>
      */
     public void run(){
-        String content = process.runProcess(compressionAlgorithm) ;
-        fileHandle.write(content);
+        String content1 = fileHandle.read() ;
+        String content2 = process.runProcess(compressionAlgorithm, content1) ;
+        fileHandle.write(content2);
     }
 }

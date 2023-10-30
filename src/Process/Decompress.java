@@ -7,8 +7,7 @@ import TypesOfCompression.CompressionAlgorithm;
 
 public class Decompress implements Process{
     @Override
-    public String runProcess(CompressionAlgorithm compressionAlgorithm){
-        String content = FileHandle.read() ;
+    public String runProcess(CompressionAlgorithm compressionAlgorithm, String content){
         Scanner stringBuilder = new Scanner(content) ;
         List<String> tags = new ArrayList<>();
 
