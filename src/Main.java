@@ -18,7 +18,7 @@ public class Main {
             fileName = scanner.nextLine() ;
         }
 
-        FileHandle fileHandle = new FileHandle(fileName) ;
+        FileHandle fileHandle = new TextTechHandler(fileName) ;
         Run run = new Run(process, compressionAlgorithm, fileHandle);
         run.run();
     }
