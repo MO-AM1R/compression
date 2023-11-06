@@ -48,14 +48,14 @@ public class LZ77 implements CompressionAlgorithm{
             }
 
             if (position == 0){
-                tags.append("<").append(position).append(", ")
-                        .append(length).append(", ").append(content.charAt(j)).append(">\n");
+                tags.append(position).append(", ")
+                        .append(length).append(", ").append(content.charAt(j)).append("\n");
             }
             else{
                 length = currentPattern.length() - 1;
-                tags.append("<").append(position).append(", ").append(length)
+                tags.append(position).append(", ").append(length)
                         .append(", ").append(currentPattern.toString().charAt(currentPattern.length() - 1))
-                        .append(">\n");
+                        .append("\n");
             }
             buffer.append(content.charAt(j));
             i = buffer.length() - 1;

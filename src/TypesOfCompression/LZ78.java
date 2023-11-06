@@ -38,7 +38,7 @@ public class LZ78 implements CompressionAlgorithm{
         while (index < content.length()){
             if (!dictionary.containsKey(content.charAt(index) + "")){
                 dictionary.put(content.charAt(index) + "", counter++) ;
-                tags.append("<0, ").append(content.charAt(index++)).append(">\n");
+                tags.append("0, ").append(content.charAt(index++)).append("\n");
                 continue ;
             }
 
@@ -49,15 +49,15 @@ public class LZ78 implements CompressionAlgorithm{
                 currentPattern.append(content.charAt(index++)) ;
             }
             if (index < content.length()) {
-                tags.append("<").append(dictionary.get(currentPattern.toString())).append(", ")
-                        .append(content.charAt(index)).append(">\n");
+                tags.append(dictionary.get(currentPattern.toString())).append(", ")
+                        .append(content.charAt(index)).append("\n");
 
                 currentPattern.append(content.charAt(index++)) ;
                 dictionary.put(currentPattern.toString(), counter++) ;
             }
             else{
-                tags.append("<").append('0').append(", ")
-                        .append(currentPattern).append(">");
+                tags.append('0').append(", ")
+                        .append(currentPattern);
             }
         }
 

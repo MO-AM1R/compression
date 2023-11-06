@@ -14,7 +14,8 @@ public class Main {
         System.out.print("Please enter the file name ->");
         String fileName = scanner.nextLine() ;
         while (!fileName.contains(".txt")){
-            System.out.print("file name is incorrect");
+            System.out.println("file name is incorrect");
+            System.out.print("Please enter the file name ->");
             fileName = scanner.nextLine() ;
         }
 
